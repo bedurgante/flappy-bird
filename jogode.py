@@ -2,7 +2,7 @@ import pygame
 import random
 import sys
 
-# Inicializando o pygame
+# Iniciando o pygame
 pygame.init()
 
 # Configurações da tela
@@ -10,7 +10,6 @@ screen_width = 400
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-# Título
 pygame.display.set_caption("Flappy Bird")
 
 # Cores
@@ -49,13 +48,13 @@ pipe_count = 0  # Contador de canos passados
 def draw_bird(x, y):
     screen.blit(bird_image, (x, y))
 
-# Função para desenhar os canos com aparência de tubo
+# Função para desenhar os canos
 def draw_pipes(pipe_x, pipe_height, gap):
     # Desenha o cano superior
     pygame.draw.rect(screen, green, [pipe_x, 0, pipe_width, pipe_height])
     pygame.draw.rect(screen, dark_green, [pipe_x + 5, 0, pipe_width - 10, pipe_height])  # Efeito de borda
 
-    # Desenha o cano inferior
+    # Desenhar o cano inferior
     pygame.draw.rect(screen, green, [pipe_x, pipe_height + gap, pipe_width, screen_height - pipe_height - gap])
     pygame.draw.rect(screen, dark_green, [pipe_x + 5, pipe_height + gap, pipe_width - 10, screen_height - pipe_height - gap])  # Efeito de borda
 
@@ -72,18 +71,18 @@ def draw_start_button():
 def draw_finish_line():
     pygame.draw.rect(screen, blue, [pipe_x, 0, pipe_width, screen_height])
 
-# Função para mostrar mensagem de congratulações
+# Função para mostrar mensagem de parabéns
 def show_congratulations():
     screen.blit(congratsback, (0, 0))  # Desenha o fundo
     font = pygame.font.Font(None, 48)
     text = font.render("Congratulations!", True, blue)
     screen.blit(text, (screen_width // 2 - 150, screen_height // 2 - 25))
     pygame.display.update()
-    pygame.time.wait(2500)  # Aguarda 2.5 segundos antes de fechar
+    pygame.time.wait(2500)  # Aguarde 2.5 segundos antes de fechar
     pygame.quit()
     sys.exit()
 
-# Função para mostrar a contagem regressiva com fundo
+# Função para mostrar a contagem regressiva
 def countdown(seconds):
     font = pygame.font.Font(None, 48)
     for i in range(seconds, 0, -1):
@@ -91,15 +90,15 @@ def countdown(seconds):
         text = font.render(str(i), True, black)
         screen.blit(text, (screen_width // 2 - 10, screen_height // 2 - 25))
         pygame.display.update()
-        pygame.time.wait(1000)  # Espera 1 segundo
+        pygame.time.wait(1000) 
 
-# Função para mostrar a tela de Game Over
+# Função para mostrar a tela de game over
 def show_game_over():
     font = pygame.font.Font(None, 48)
     text = font.render("Game Over", True, blue)
     screen.blit(text, (screen_width // 2 - 100, screen_height // 2 - 25))
     pygame.display.update()
-    pygame.time.wait(3000)  # Aguarda 3 segundos antes de fechar
+    pygame.time.wait(3000) 
     pygame.quit()
     sys.exit()
 
@@ -107,13 +106,13 @@ def show_game_over():
 def game_loop():
     global bird_y, bird_y_change, pipe_x, pipe_height, pipe_count
 
-    # Variáveis de controle do jogo
+    # Controle do jogo
     game_over = False
     game_started = False
     clock = pygame.time.Clock()
 
     while not game_over:
-        screen.blit(sky_background, (0, 0))  # Desenha o fundo
+        screen.blit(sky_background, (0, 0))
 
         if not game_started:
             start_button = draw_start_button()
@@ -123,7 +122,7 @@ def game_loop():
                     game_over = True
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if start_button.collidepoint(event.pos):
-                        countdown(3)  # Inicia a contagem regressiva de 3 segundos
+                        countdown(3)  # Inicia a contagem de 3 segundos
                         game_started = True
         else:
             for event in pygame.event.get():
@@ -136,7 +135,7 @@ def game_loop():
                     if event.key == pygame.K_SPACE:
                         bird_y_change = 0  # Para de subir quando solta a barra de espaço
 
-            # Aplicando a gravidade
+            # Gravidade
             bird_y_change += gravity
             bird_y += bird_y_change
 
@@ -149,14 +148,14 @@ def game_loop():
                 pipe_height = random.randint(150, 450)
                 pipe_count += 1  # Incrementa o contador de canos passados
 
-            # Desenho na tela
+            
             draw_bird(bird_x, bird_y)
             if pipe_count < 10:
                 draw_pipes(pipe_x, pipe_height, gap)
             else:
                 draw_finish_line()
 
-            # Verificar se o jogador chegou à linha de chegada
+            # O jogador chegou à linha de chegada
             if pipe_count == 10 and pipe_x < bird_x + bird_width:
                 show_congratulations()
 

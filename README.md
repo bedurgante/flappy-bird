@@ -4,10 +4,17 @@ Recriamos o jogo lançado em 2013 chamado Flappy bird, no qual seu objetivo é c
 Códigos que usamos:
 
 image.load
+
 transform.scale
+
 gravity
+
 random.randint
+
 screen.blit
+
 pygame.Rect
+
 event.type
+
 clock.tick 
